@@ -5,6 +5,7 @@ import com.simpl.service.news.newsservice.api.client.ClientApi;
 import com.simpl.service.news.newsservice.api.client.NewsCategoryDto;
 import com.simpl.service.news.newsservice.api.client.NewsItemDto;
 import com.simpl.service.news.newsservice.api.client.NewsListItemDto;
+import com.simpl.service.news.newsservice.newsapi.NewsArticle;
 import org.joda.time.DateTime;
 
 import java.util.List;
@@ -29,26 +30,14 @@ public class MockClientService implements ClientApi {
 
     @Override
     public List<NewsListItemDto> getNewsForCategory() {
-        return ImmutableList.of(
-                NewsListItemDto.builder()
-                        .withId(123321)
-                        .withTitle("Test news title")
-                        .withSummary("Test summary")
-                        .withSentiment(NewsListItemDto.Sentiment.POSITIVE)
-                        .withReputation(NewsListItemDto.Reputation.GOOD)
-                        .withPublishDate(new DateTime()).build(),
-                NewsListItemDto.builder()
-                        .withId(123321)
-                        .withTitle("Test news title")
-                        .withSummary("Test summary")
-                        .withSentiment(NewsListItemDto.Sentiment.NEGATIVE)
-                        .withReputation(NewsListItemDto.Reputation.GOOD)
-                        .withPublishDate(new DateTime()).build()
-        );    }
+
+        NewsArticle a= new NewsArticle();
+        return a.getNewsListByCategory("foo", "bar");
+
+       }
 
     @Override
     public NewsItemDto getMoreNewsForThis(final int newsId) {
-
         return new NewsItemDto();
     }
 }

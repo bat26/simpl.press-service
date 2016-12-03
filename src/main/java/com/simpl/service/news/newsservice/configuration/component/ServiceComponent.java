@@ -23,7 +23,7 @@ public interface ServiceComponent {
     /**
      * @return Bootstrap API request handler
      */
-    BootstrapApiResource bootstrapApiResource();
+
 
     /**
      * @return Status request handler

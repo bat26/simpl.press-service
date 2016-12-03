@@ -18,23 +18,17 @@ public class NewsListItemDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public static enum Sentiment {
-        POSITIVE,
-        NEGATIVE,
-        NEUTRAL
-    }
-
     public static enum Reputation {
         GOOD,
         AVERAGE,
         POOR
     }
 
-    private int id;
+    private String id;
     private String title;
     private String summary;
     private DateTime publishDate;
-    private Sentiment sentimentLevel;
+    private String sentimentLevel;
     private Reputation reputationLevel;
 
 
@@ -60,11 +54,11 @@ public class NewsListItemDto implements Serializable {
     /**
      */
     @ApiModelProperty(value = "Newsitem id", required = true, example = "123123")
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(final int id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -105,11 +99,11 @@ public class NewsListItemDto implements Serializable {
     }
 
     @ApiModelProperty(value = "News sentiment", required = true, example = "Positive")
-    public Sentiment getSentimentLevel() {
+    public String getSentimentLevel() {
         return sentimentLevel;
     }
 
-    public void setSentimentLevel(final Sentiment sentimentLevel) {
+    public void setSentimentLevel(final String sentimentLevel) {
         this.sentimentLevel = sentimentLevel;
     }
 
@@ -126,14 +120,14 @@ public class NewsListItemDto implements Serializable {
      */
     public static class Builder {
 
-        private int id;
+        private String id;
         private String title;
         private String summary;
         private DateTime publishDate;
-        private Sentiment sentimentLevel;
+        private String sentimentLevel;
         private Reputation reputationLevel;
 
-        public Builder withId(final int id) {
+        public Builder withId(final String id) {
             this.id = id;
             return this;
         }
@@ -153,7 +147,7 @@ public class NewsListItemDto implements Serializable {
             return this;
         }
 
-        public Builder withSentiment(final Sentiment sentiment) {
+        public Builder withSentiment(final String sentiment) {
             this.sentimentLevel = sentiment;
             return this;
         }
