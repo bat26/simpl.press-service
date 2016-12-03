@@ -1,9 +1,7 @@
 package com.simpl.service.news.newsservice.configuration.component;
 
 import com.simpl.service.news.newsservice.SimplPressServiceConfiguration;
-import com.simpl.service.news.newsservice.api.bootstrap.BootstrapApi;
 import com.simpl.service.news.newsservice.api.client.ClientApi;
-import com.simpl.service.news.newsservice.service.DefaultBootstrapService;
 import com.simpl.service.news.newsservice.service.MockClientService;
 import dagger.Module;
 import dagger.Provides;
@@ -45,14 +43,4 @@ public class CoreModule {
         throw new RuntimeException("Non-stubbed service is currently unsupported");
     }
 
-    /**
-     * Bootstrap service: processes requests that are initially handled by the Bootstrap API resource.
-     *
-     * @return Bootstrap service
-     */
-    @Provides
-    @Singleton
-    public BootstrapApi provideBootstrapService() {
-        return new DefaultBootstrapService();
-    }
 }

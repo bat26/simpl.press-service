@@ -1,8 +1,5 @@
 package com.simpl.service.news.newsservice;
 
-import com.simpl.service.news.newsservice.configuration.component.CheckoutServiceComponent;
-import com.simpl.service.news.newsservice.configuration.component.CoreModule;
-import com.simpl.service.news.newsservice.configuration.component.DaggerCheckoutServiceComponent;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.servlets.CacheBustingFilter;
@@ -55,14 +52,6 @@ public class SimplPressServiceApplication extends Application<SimplPressServiceC
     @Override
     public void run(final SimplPressServiceConfiguration configuration, final Environment environment) {
         // Dependency Injection component
-        final CheckoutServiceComponent component = DaggerCheckoutServiceComponent.builder()
-                .coreModule(new CoreModule(configuration))
-                .build();
-
-        environment.jersey().register(component.clientApiResource());
-        environment.jersey().register(component.bootstrapApiResource());
-        environment.jersey().register(component.statusResource());
-        environment.jersey().register(component.indexResource());
 
         addCacheBustingFilter(environment);
         addCrossOriginFilter(environment);

@@ -1,6 +1,5 @@
 package com.simpl.service.news.newsservice.configuration.component;
 
-import com.simpl.service.news.newsservice.resource.BootstrapApiResource;
 import com.simpl.service.news.newsservice.resource.ClientApiResource;
 import com.simpl.service.news.newsservice.resource.IndexResource;
 import com.simpl.service.news.newsservice.resource.StatusResource;
@@ -13,17 +12,12 @@ import javax.inject.Singleton;
  */
 @Singleton
 @Component(modules = { ApiResourceModule.class, OperationsModule.class, PageResourceModule.class })
-public interface CheckoutServiceComponent {
+public interface SimplServiceComponent {
 
     /**
      * @return Client API request handler
      */
     ClientApiResource clientApiResource();
-
-    /**
-     * @return Bootstrap API request handler
-     */
-    BootstrapApiResource bootstrapApiResource();
 
     /**
      * @return Status request handler
