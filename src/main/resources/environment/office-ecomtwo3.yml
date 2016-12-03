@@ -1,0 +1,17 @@
+server:
+  rootPath: /*
+  gzip:
+    enabled: true
+  applicationContextPath: /
+  applicationConnectors:
+    - type: http
+      port: 90210
+  adminConnectors: []
+
+logging:
+  level: INFO
+  loggers:
+    com.moo.ecommerce: DEBUG
+
+service:
+  stubbed: yes

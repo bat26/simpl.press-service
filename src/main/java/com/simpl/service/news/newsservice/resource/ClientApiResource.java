@@ -1,0 +1,66 @@
+package com.simpl.service.news.newsservice.resource;
+
+import com.simpl.service.news.newsservice.api.client.ClientApi;
+import com.simpl.service.news.newsservice.api.client.NewsCategoryDto;
+import com.simpl.service.news.newsservice.api.client.NewsItemDto;
+import com.simpl.service.news.newsservice.api.client.NewsListItemDto;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
+/**
+ * Checkout client API resource.
+ *
+ * This resource is responsible for configuring routing, resolving request parameters and other properties, then
+ * forwarding request handling to a clientService.
+ */
+@Path(ResourcePath.CLIENT_API_V1)
+@Produces(MediaType.APPLICATION_JSON)
+@Api(tags = "client", produces = MediaType.APPLICATION_JSON)
+public class ClientApiResource implements ClientApi {
+
+    private final ClientApi clientService;
+
+    /**
+     * Constructor.
+     *
+     * @param clientService Service delegate
+     */
+    @Inject
+    public ClientApiResource(final ClientApi clientService) {
+        this.clientService = checkNotNull(clientService, "clientService required");
+    }
+
+    @GET
+    @Path("/getNewsCategories")
+    @ApiOperation("Get news categories")
+    @Override
+    public List<NewsCategoryDto> getNewsCategories(
+    ) {
+        return clientService.getNewsCategories();
+    }
+
+    @GET
+    @Path("/getNewsForCategory")
+    @ApiOperation("Retrieves a list of news items for a given category")
+    @Override
+    public List<NewsListItemDto> getNewsForCategory() {
+        return clientService.getNewsForCategory();
+    }
+
+    @GET
+    @Path("/getMoreNewsForThis")
+    @ApiOperation("Finds more data on this news article")
+    @Override
+    public NewsItemDto getMoreNewsForThis(final int newsId) {
+        return clientService.getMoreNewsForThis(newsId);
+    }
+}

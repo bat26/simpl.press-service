@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>Simpl.press Service ${build.version}</title>
+    <style type="text/css">
+        body {
+            margin: 20px;
+            background: white;
+            color: black;
+            font-family: sans-serif;
+        }
+        h1 {
+            color: #007c44;
+        }
+        a {
+            color: #009553;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        hr {
+            height: 1px;
+            border: 0;
+            background-color: #999;
+            margin: 10px 0;
+        }
+        img.moo-drop {
+            float: left;
+            height: 35px;
+            width: 35px;
+            margin-right: 5px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h1>Simpl.press Service</h1>
+</div>
+<hr>
+<p>Resources</p>
+<ul>
+    <li><a href="/status">Status check</a></li>
+    <li><a href="/version">Version</a></li>
+    <li><a href="/swagger/ui">Swagger UI</a></li>
+    <li><a href="/swagger/api/swagger.json">Swagger Schema (JSON)</a></li>
+</ul>
+<hr>
+<p>Version ${build.version} built ${build.timestamp}</p>
+</body>
+</html>
