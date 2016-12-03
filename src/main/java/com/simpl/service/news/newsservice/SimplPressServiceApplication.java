@@ -1,5 +1,9 @@
 package com.simpl.service.news.newsservice;
 
+import com.simpl.service.news.newsservice.resource.ClientApiResource;
+import com.simpl.service.news.newsservice.resource.IndexResource;
+import com.simpl.service.news.newsservice.resource.StatusResource;
+import com.simpl.service.news.newsservice.service.MockClientService;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.servlets.CacheBustingFilter;
@@ -51,7 +55,10 @@ public class SimplPressServiceApplication extends Application<SimplPressServiceC
 
     @Override
     public void run(final SimplPressServiceConfiguration configuration, final Environment environment) {
-        // Dependency Injection component
+
+        environment.jersey().register(new ClientApiResource(new MockClientService()));
+        environment.jersey().register(new StatusResource());
+        environment.jersey().register(new IndexResource());
 
         addCacheBustingFilter(environment);
         addCrossOriginFilter(environment);

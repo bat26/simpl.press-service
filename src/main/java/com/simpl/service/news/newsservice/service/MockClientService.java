@@ -9,21 +9,12 @@ import org.joda.time.DateTime;
 
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 /**
  * Mock Client API implementation.
  */
 public class MockClientService implements ClientApi {
 
-    private final String paymentUrl;
-
-
-    /**
-     * @param paymentUrl Payment URL (e.g. to an external system)
-     */
-    public MockClientService(final String paymentUrl) {
-        this.paymentUrl = checkNotNull(paymentUrl, "paymentUrl required");
+    public MockClientService() {
     }
 
     @Override

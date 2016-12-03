@@ -1,7 +1,5 @@
 package com.simpl.service.news.newsservice.api.client;
 
-import com.simpl.service.news.newsservice.api.bootstrap.BootstrapApi;
-
 import java.util.List;
 
 /**
@@ -9,7 +7,6 @@ import java.util.List;
  *
  * These operations will be publicly accessible.
  *
- * @see BootstrapApi
  */
 public interface ClientApi {
 

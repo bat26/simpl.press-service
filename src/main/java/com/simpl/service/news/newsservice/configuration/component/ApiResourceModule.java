@@ -1,8 +1,6 @@
 package com.simpl.service.news.newsservice.configuration.component;
 
-import com.simpl.service.news.newsservice.api.bootstrap.BootstrapApi;
 import com.simpl.service.news.newsservice.api.client.ClientApi;
-import com.simpl.service.news.newsservice.resource.BootstrapApiResource;
 import com.simpl.service.news.newsservice.resource.ClientApiResource;
 import dagger.Module;
 import dagger.Provides;
@@ -27,18 +25,5 @@ public class ApiResourceModule {
     @Inject
     public ClientApiResource provideClientApiResource(final ClientApi clientService) {
         return new ClientApiResource(clientService);
-    }
-
-    /**
-     * Bootstrap API resource (controller).
-     *
-     * @param bootstrapService Client API delegate
-     * @return Resource
-     */
-    @Provides
-    @Singleton
-    @Inject
-    public BootstrapApiResource provideBootstrapApiResource(final BootstrapApi bootstrapService) {
-        return new BootstrapApiResource(bootstrapService);
     }
 }

@@ -37,10 +37,9 @@ public class CoreModule {
     @Singleton
     public ClientApi provideClientService() {
         if (simplPressServiceConfiguration.getService().isStubbed()) {
-            return new MockClientService(simplPressServiceConfiguration.getService().getStubData().getPaymentUrl());
+            return new MockClientService();
         }
 
         throw new RuntimeException("Non-stubbed service is currently unsupported");
     }
-
 }
