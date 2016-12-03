@@ -3,7 +3,6 @@ package com.simpl.service.news.newsservice.configuration.component;
 import com.simpl.service.news.newsservice.resource.BootstrapApiResource;
 import com.simpl.service.news.newsservice.resource.ClientApiResource;
 import com.simpl.service.news.newsservice.resource.IndexResource;
-import com.simpl.service.news.newsservice.resource.LocalisedPageResource;
 import com.simpl.service.news.newsservice.resource.StatusResource;
 import dagger.Component;
 
@@ -35,10 +34,5 @@ public interface CheckoutServiceComponent {
      * @return Service index page resource (internal use only)
      */
     IndexResource indexResource();
-
-    /**
-     * @return Localised page resource (used to serve initial checkout pages)
-     */
-    LocalisedPageResource localisedPageResource();
 
 }

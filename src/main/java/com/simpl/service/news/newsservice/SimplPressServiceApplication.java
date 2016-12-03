@@ -63,7 +63,6 @@ public class SimplPressServiceApplication extends Application<SimplPressServiceC
         environment.jersey().register(component.bootstrapApiResource());
         environment.jersey().register(component.statusResource());
         environment.jersey().register(component.indexResource());
-        environment.jersey().register(component.localisedPageResource());
 
         addCacheBustingFilter(environment);
         addCrossOriginFilter(environment);

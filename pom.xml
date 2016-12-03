@@ -6,13 +6,13 @@
         <maven>3.0.0</maven>
     </prerequisites>
 
-    <groupId>com.moo.ecommerce.checkout</groupId>
-    <artifactId>checkout-service</artifactId>
-    <version>0.5-SNAPSHOT</version>
+    <groupId>com.simpl.service.news</groupId>
+    <artifactId>simpl.press-service</artifactId>
+    <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>CheckoutService</name>
-    <description>Provides a client API for front-end checkout applications</description>
+    <name>Simpl.press Service</name>
+    <description>Provides a client API for front-end simpl.press</description>
 
     <properties>
         <jdk.version>1.8</jdk.version>
@@ -30,8 +30,6 @@
         <build.version>${project.version}</build.version>
         <build.timestamp>${maven.build.timestamp}</build.timestamp>
 
-        <checkstyle.suppressions>checkstyle-suppressions.xml</checkstyle.suppressions>
-        <checkstyle.config>moo-checkstyle.xml</checkstyle.config>
     </properties>
 
     <dependencyManagement>
@@ -105,13 +103,6 @@
             </exclusions>
         </dependency>
 
-        <!-- Moo -->
-        <dependency>
-            <groupId>com.moo.website</groupId>
-            <artifactId>website-locales</artifactId>
-            <version>${website-locales.version}</version>
-        </dependency>
-
         <!-- Testing -->
         <dependency>
             <groupId>io.dropwizard</groupId>
@@ -132,7 +123,7 @@
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
-            <scope>test</scope>
+            <scope>test</scope>a
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
