@@ -21,7 +21,7 @@ public interface ClientApi {
      *
      * @return List
      */
-    List<NewsListItemDto> getNewsForCategory();
+    List<NewsListItemDto> getNewsForCategory(String category);
 
     /**
      * Gets more data / stuff on the particular news article

@@ -6,7 +6,6 @@ import com.simpl.service.news.newsservice.api.client.NewsCategoryDto;
 import com.simpl.service.news.newsservice.api.client.NewsItemDto;
 import com.simpl.service.news.newsservice.api.client.NewsListItemDto;
 import com.simpl.service.news.newsservice.newsapi.NewsArticle;
-import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -29,10 +28,10 @@ public class MockClientService implements ClientApi {
     }
 
     @Override
-    public List<NewsListItemDto> getNewsForCategory() {
+    public List<NewsListItemDto> getNewsForCategory(String category) {
 
         NewsArticle a= new NewsArticle();
-        return a.getNewsListByCategory("foo", "bar");
+        return a.getNewsListByCategory(category, "bar");
 
        }
 

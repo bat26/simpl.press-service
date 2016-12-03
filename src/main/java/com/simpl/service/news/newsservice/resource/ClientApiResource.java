@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -17,10 +18,6 @@ import java.util.List;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Checkout client API resource.
- *
- * This resource is responsible for configuring routing, resolving request parameters and other properties, then
- * forwarding request handling to a clientService.
  */
 @Path(ResourcePath.CLIENT_API_V1)
 @Produces(MediaType.APPLICATION_JSON)
@@ -49,11 +46,11 @@ public class ClientApiResource implements ClientApi {
     }
 
     @GET
-    @Path("/getNewsForCategory")
+    @Path("/getNewsForCategory/{category}")
     @ApiOperation("Retrieves a list of news items for a given category")
     @Override
-    public List<NewsListItemDto> getNewsForCategory() {
-        return clientService.getNewsForCategory();
+    public List<NewsListItemDto> getNewsForCategory(@PathParam("category") String category) {
+        return clientService.getNewsForCategory(category);
     }
 
     @GET
