@@ -11,6 +11,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
 import com.simpl.service.news.newsservice.api.client.NewsListItemDto;
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.ws.rs.core.UriBuilder;
@@ -176,14 +177,17 @@ public class NewsArticle {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
-        StringBuffer response = new StringBuffer();
+        StringBuilder response = new StringBuilder();
 
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
         }
         in.close();
         System.out.println(response.toString());
-        return response.toString();
+        String textonly = Jsoup.parse(response.toString()).text();
+        System.out.println(textonly);
+        String parts[] = textonly.split(".html:");
+        return parts[1];
 
     }
 
