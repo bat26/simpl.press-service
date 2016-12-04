@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Ddw.http.port=$PORT -Ddw.http.adminPort=$PORT -jar target/SimplPress-0.1.jar server config/local.yml
+web: java $JAVA_OPTS -Ddw.server.applicationConnectors.port=$PORT -jar target/SimplPress-0.1.jar server config/local.yml
