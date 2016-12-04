@@ -186,7 +186,7 @@ public class NewsArticle {
         System.out.println(response.toString());
         String textonly = Jsoup.parse(response.toString()).text();
         System.out.println(textonly);
-        String parts[] = textonly.split(".html:");
+        String parts[] = textonly.split(": ");
         if(parts.length > 1) {
             return parts[1];
         } else {
