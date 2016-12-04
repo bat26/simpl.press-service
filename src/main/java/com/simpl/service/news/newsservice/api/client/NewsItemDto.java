@@ -24,7 +24,8 @@ public class NewsItemDto implements Serializable {
 
 
     private List<NewsItemComponentDto> newsItemComponent;
-    private int id;
+    private String id;
+    private String summary;
 
 
     public NewsItemDto() {
@@ -32,6 +33,7 @@ public class NewsItemDto implements Serializable {
 
     public NewsItemDto(final Builder builder) {
         this.id = builder.id;
+        this.summary = builder.summary;
     }
 
     /**
@@ -44,14 +46,18 @@ public class NewsItemDto implements Serializable {
     /**
      */
     @ApiModelProperty(value = "Newsitem id", required = true, example = "123123")
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(final int id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
+    @ApiModelProperty(value = "News summary", required = true, example = "Blah blah")
+    public String getSummary() {
+        return summary;
+    }
 
     @Override
     public String toString() {
@@ -66,10 +72,16 @@ public class NewsItemDto implements Serializable {
      */
     public static class Builder {
 
-        private int id;
+        private String id;
+        private String summary;
 
-        public Builder withId(final int id) {
+        public Builder withId(final String id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder withSummary(final String summary) {
+            this.summary = summary;
             return this;
         }
 

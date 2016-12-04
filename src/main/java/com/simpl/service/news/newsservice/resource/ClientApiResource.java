@@ -13,6 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -54,10 +55,10 @@ public class ClientApiResource implements ClientApi {
     }
 
     @GET
-    @Path("/getMoreNewsForThis")
+    @Path("/getMoreNewsForThis/{newsid}")
     @ApiOperation("Finds more data on this news article")
     @Override
-    public NewsItemDto getMoreNewsForThis(final int newsId) {
+    public NewsItemDto getMoreNewsForThis(@PathParam("newsid")final String newsId) throws IOException {
         return clientService.getMoreNewsForThis(newsId);
     }
 }

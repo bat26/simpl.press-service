@@ -1,5 +1,6 @@
 package com.simpl.service.news.newsservice.api.client;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -28,5 +29,5 @@ public interface ClientApi {
      *
      * @return NewsItemDto
      */
-    NewsItemDto getMoreNewsForThis(int id);
+    NewsItemDto getMoreNewsForThis(String id) throws IOException;
 }

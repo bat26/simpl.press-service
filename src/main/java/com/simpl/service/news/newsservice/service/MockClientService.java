@@ -7,14 +7,20 @@ import com.simpl.service.news.newsservice.api.client.NewsItemDto;
 import com.simpl.service.news.newsservice.api.client.NewsListItemDto;
 import com.simpl.service.news.newsservice.newsapi.NewsArticle;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Mock Client API implementation.
  */
 public class MockClientService implements ClientApi {
 
+    Map<String, String> idToUrl;
+
     public MockClientService() {
+        idToUrl = new HashMap<>();
     }
 
     @Override
@@ -31,12 +37,17 @@ public class MockClientService implements ClientApi {
     public List<NewsListItemDto> getNewsForCategory(String category) {
 
         NewsArticle a= new NewsArticle();
+        a.getNewsListByCategory(category, "bar");
+        idToUrl = a.getIdUrl();
         return a.getNewsListByCategory(category, "bar");
-
        }
 
     @Override
-    public NewsItemDto getMoreNewsForThis(final int newsId) {
+    public NewsItemDto getMoreNewsForThis(final String  newsId) throws IOException {
+
+        NewsArticle a = new NewsArticle();
+        String summaryUrl = idToUrl.get(newsId);
+        NewsItemDto.builder().withId(newsId).withSummary(a.getSummary(summaryUrl)).build();
         return new NewsItemDto();
     }
 }
