@@ -53,7 +53,7 @@ public class NewsArticle {
                         "enriched.url.publicationDate", "enriched.url.enrichedTitle.entities",
                         "enriched.url.enrichedTitle.docSentiment"};
         params.put(AlchemyDataNews.RETURN, StringUtils.join(fields, ","));
-        params.put(AlchemyDataNews.START, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - 16400));
+        params.put(AlchemyDataNews.START, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - 16400000));
         params.put(AlchemyDataNews.END, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
         params.put(AlchemyDataNews.COUNT, 10);
 
@@ -63,15 +63,16 @@ public class NewsArticle {
 
 
             Article article = i.getSource().getEnriched().getArticle();
+            String al[]=article.getPublicationDate().getDate().toString().split(" ");
+            al[0]= al[0]+al[1]+al[2];
             //article url -> sentiment.get
             listOfNews.add(NewsListItemDto.builder()
                     .withId(i.getId())
                     .withTitle(article.getTitle())
                     .withSummary(i.getSource().getEnriched().getArticle().getText())
-                    .withSentiment("Positive")
+                    .withSentiment("positive")
                     .withReputation(NewsListItemDto.Reputation.GOOD)
-                    .withPublishDate(new DateTime()).build());
-
+                    .withPublishDate(al[0]).build());
             idUrl.put(i.getId(), i.getSource().getEnriched().getArticle().getUrl());
         }
 

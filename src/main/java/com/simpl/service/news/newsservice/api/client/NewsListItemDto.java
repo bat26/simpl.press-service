@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.joda.time.DateTime;
 
 import java.io.Serializable;
 
@@ -27,7 +26,7 @@ public class NewsListItemDto implements Serializable {
     private String id;
     private String title;
     private String summary;
-    private DateTime publishDate;
+    private String publishDate;
     private String sentimentLevel;
     private Reputation reputationLevel;
 
@@ -90,11 +89,11 @@ public class NewsListItemDto implements Serializable {
     }
 
     @ApiModelProperty(value = "News publish date", required = true, example = "27/12/16")
-    public DateTime getPublishDate() {
+    public String getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(final DateTime publishDate) {
+    public void setPublishDate(final String publishDate) {
         this.publishDate = publishDate;
     }
 
@@ -123,7 +122,7 @@ public class NewsListItemDto implements Serializable {
         private String id;
         private String title;
         private String summary;
-        private DateTime publishDate;
+        private String publishDate;
         private String sentimentLevel;
         private Reputation reputationLevel;
 
@@ -142,7 +141,7 @@ public class NewsListItemDto implements Serializable {
             return this;
         }
 
-        public Builder withPublishDate(final DateTime publishDate) {
+        public Builder withPublishDate(final String publishDate) {
             this.publishDate = publishDate;
             return this;
         }
