@@ -53,7 +53,7 @@ public class NewsArticle {
                         "enriched.url.publicationDate", "enriched.url.enrichedTitle.entities",
                         "enriched.url.enrichedTitle.docSentiment"};
         params.put(AlchemyDataNews.RETURN, StringUtils.join(fields, ","));
-        params.put(AlchemyDataNews.START, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - 16400));
+        params.put(AlchemyDataNews.START, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - 16400000));
         params.put(AlchemyDataNews.END, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
         params.put(AlchemyDataNews.COUNT, 10);
 

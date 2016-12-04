@@ -47,7 +47,11 @@ public class MockClientService implements ClientApi {
 
         NewsArticle a = new NewsArticle();
         String summaryUrl = idToUrl.get(newsId);
-        NewsItemDto.builder().withId(newsId).withSummary(a.getSummary(summaryUrl)).build();
-        return new NewsItemDto();
+
+        System.out.println("Summary URL " + summaryUrl);
+        String summary = a.getSummary(summaryUrl);
+        System.out.println(summary);
+        System.out.println(newsId);
+        return NewsItemDto.builder().withId(newsId).withSummary(summary).build();
     }
 }
