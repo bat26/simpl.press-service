@@ -98,6 +98,7 @@ public class NewsItemDto implements Serializable {
         this.url = url;
     }
 
+    @ApiModelProperty(value = "News reputation", required = true, example = "good")
     public String getReputation() {
         return reputation;
     }
