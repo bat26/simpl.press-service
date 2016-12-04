@@ -26,6 +26,10 @@ public class NewsItemDto implements Serializable {
     private List<NewsItemComponentDto> newsItemComponent;
     private String id;
     private String summary;
+    private String sentiment;
+    private String[] tags;
+    private String url;
+    private String reputation;
 
 
     public NewsItemDto() {
@@ -34,6 +38,10 @@ public class NewsItemDto implements Serializable {
     public NewsItemDto(final Builder builder) {
         this.id = builder.id;
         this.summary = builder.summary;
+        this.sentiment = builder.sentiment;
+        this.tags = builder.tags;
+        this.url = builder.url;
+        this.reputation = builder.reputation;
     }
 
     /**
@@ -59,6 +67,45 @@ public class NewsItemDto implements Serializable {
         return summary;
     }
 
+    public void setSummary(final String summary) {
+        this.summary = summary;
+    }
+
+    @ApiModelProperty(value = "News sentiment", required = true, example = "Good bad")
+    public String getSentiment() {
+        return sentiment;
+    }
+
+    public void setSentiment(final String sentiment) {
+        this.sentiment = sentiment;
+    }
+
+    @ApiModelProperty(value = "News tags", required = true, example = "a,b,c")
+    public String[] getTags() {
+        return tags;
+    }
+
+    public void setTags(final String[] tags) {
+        this.tags = tags;
+    }
+
+    @ApiModelProperty(value = "News url", required = true, example = "www.google.com")
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(final String url) {
+        this.url = url;
+    }
+
+    public String getReputation() {
+        return reputation;
+    }
+
+    public void setReputation(final String reputation) {
+        this.reputation = reputation;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -74,6 +121,10 @@ public class NewsItemDto implements Serializable {
 
         private String id;
         private String summary;
+        private String sentiment;
+        private String[] tags;
+        private String url;
+        private String reputation;
 
         public Builder withId(final String id) {
             this.id = id;
@@ -82,6 +133,26 @@ public class NewsItemDto implements Serializable {
 
         public Builder withSummary(final String summary) {
             this.summary = summary;
+            return this;
+        }
+
+        public Builder withSentiment(final String sentiment) {
+            this.sentiment = sentiment;
+            return this;
+        }
+
+        public Builder withTags(final String[] tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        public Builder withUrl(final String url) {
+            this.url = url;
+            return this;
+        }
+
+        public Builder withReputation(final String reputation) {
+            this.reputation = reputation;
             return this;
         }
 

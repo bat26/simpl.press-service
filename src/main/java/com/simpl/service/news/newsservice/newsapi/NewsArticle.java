@@ -5,6 +5,7 @@ import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Article;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Concepts;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Document;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
@@ -25,10 +26,11 @@ import java.util.concurrent.TimeUnit;
 
 public class NewsArticle {
 
+    BadNewsSites badNewsSites;
     Map<String, String> idUrl;
     private final String USER_AGENT = "Mozilla/5.0";
     public NewsArticle() {
-
+        badNewsSites = new BadNewsSites();
         idUrl = new HashMap<>();
     }
 
@@ -39,6 +41,15 @@ public class NewsArticle {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(AlchemyLanguage.URL, url);
         return service.getSentiment(params).execute();
+    }
+
+    public Concepts getConcepts(String url) {
+        AlchemyLanguage service = new AlchemyLanguage();
+        service.setApiKey("355266491b345cda940733f6558d1db3373c9780");
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put(AlchemyLanguage.URL, url);
+        return service.getConcepts(params).execute();
     }
 
 
@@ -59,8 +70,10 @@ public class NewsArticle {
         DocumentsResult result = service.getNewsDocuments(params).execute();
         List<NewsListItemDto> listOfNews = new ArrayList<>();
         for (Document i : result.getDocuments().getDocuments()) {
-            System.out.println(i.toString());
-
+            NewsListItemDto.Reputation reputation = NewsListItemDto.Reputation.GOOD;
+            if (Arrays.asList(badNewsSites.getBadSites()).contains(i.getSource().getEnriched().getArticle().getAuthor())) {
+                reputation = NewsListItemDto.Reputation.POOR;
+            }
             JsonParser parser = new JsonParser();
             JsonObject rawJson = parser.parse(i.toString()).getAsJsonObject();
             Long dateAsLong = rawJson.get("timestamp").getAsLong()*1000;
