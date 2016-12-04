@@ -4,7 +4,6 @@ Provides a client API and other resources to support simpl.press frontend
 
 ----
 
-## How to run the Checkout Service application locally
 
 From the root directory of this codebase:
 
@@ -26,32 +25,7 @@ Within your IDE:
 (or specify another configuration file).
 
 The port the service runs on is configured within the configuration file passed to the application. 
-
-----
-
-## Test service
-
-The Checkout Service can be run with a stubbed implementation that has no integrations with other internal systems.
-This can be used for testing client applications.
-
-The stubbed service is enabled by setting the configuration option `service.stubbed` in the server configuration
-file (e.g. `config/local.yml`) to `yes` or `true`. Other options in the `service.stubData` configuration section can be
-modified.
-
-----
-
-## Build
-
-### Dependency Injection
-
-Checkout Service uses *Dagger 2* for compile-time dependency injection. Application components are configured in the
-`com.moo.ecommerce.checkout.checkoutservice.config` package. When the service is compiled, Dagger will process 
-injection-related annotations and generate various classes. These classes are used to provide dependencies to the 
-Jersey instance of the running application.
-
-To support this within an IDE, you may need to enable annotation processing. You may also want to install plugins to
-help navigate the dependency graph.
-
+##
 #### Intellij IDEA
 
 To enable annotation processing (correct for version 15):
