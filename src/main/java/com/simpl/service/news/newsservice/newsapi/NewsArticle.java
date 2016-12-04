@@ -3,6 +3,7 @@ package com.simpl.service.news.newsservice.newsapi;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Article;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Concepts;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Document;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +28,11 @@ import java.util.concurrent.TimeUnit;
 
 public class NewsArticle {
 
+    BadNewsSites badNewsSites;
     Map<String, String> idUrl;
     private final String USER_AGENT = "Mozilla/5.0";
     public NewsArticle() {
-
+        badNewsSites = new BadNewsSites();
         idUrl = new HashMap<>();
     }
 
@@ -40,6 +43,15 @@ public class NewsArticle {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(AlchemyLanguage.URL, url);
         return service.getSentiment(params).execute();
+    }
+
+    public Concepts getConcepts(String url) {
+        AlchemyLanguage service = new AlchemyLanguage();
+        service.setApiKey("355266491b345cda940733f6558d1db3373c9780");
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put(AlchemyLanguage.URL, url);
+        return service.getConcepts(params).execute();
     }
 
 
@@ -60,7 +72,10 @@ public class NewsArticle {
         DocumentsResult result = service.getNewsDocuments(params).execute();
         List<NewsListItemDto> listOfNews = new ArrayList<>();
         for (Document i : result.getDocuments().getDocuments()) {
-
+            NewsListItemDto.Reputation reputation = NewsListItemDto.Reputation.GOOD;
+            if (Arrays.asList(badNewsSites.getBadSites()).contains(i.getSource().getEnriched().getArticle().getAuthor())) {
+                reputation = NewsListItemDto.Reputation.POOR;
+            }
 
             Article article = i.getSource().getEnriched().getArticle();
             //article url -> sentiment.get
@@ -69,7 +84,7 @@ public class NewsArticle {
                     .withTitle(article.getTitle())
                     .withSummary(i.getSource().getEnriched().getArticle().getText())
                     .withSentiment("Positive")
-                    .withReputation(NewsListItemDto.Reputation.GOOD)
+                    .withReputation(reputation)
                     .withPublishDate(new DateTime()).build());
 
             idUrl.put(i.getId(), i.getSource().getEnriched().getArticle().getUrl());
