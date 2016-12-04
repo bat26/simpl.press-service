@@ -30,4 +30,6 @@ public interface ClientApi {
      * @return NewsItemDto
      */
     NewsItemDto getMoreNewsForThis(String id) throws IOException;
+
+    List<NewsListItemDto> getCategorizedNews(String filter);
 }

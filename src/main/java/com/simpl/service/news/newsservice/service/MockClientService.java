@@ -37,9 +37,9 @@ public class MockClientService implements ClientApi {
     public List<NewsListItemDto> getNewsForCategory(String category) {
 
         NewsArticle a= new NewsArticle();
-        a.getNewsListByCategory(category, "bar");
+        a.getNewsListByCategory();
         idToUrl = a.getIdUrl();
-        return a.getNewsListByCategory(category, "bar");
+        return a.getNewsListByCategory();
        }
 
     @Override
@@ -53,5 +53,13 @@ public class MockClientService implements ClientApi {
         System.out.println(summary);
         System.out.println(newsId);
         return NewsItemDto.builder().withId(newsId).withSummary(summary).build();
+    }
+
+    @Override
+    public List<NewsListItemDto> getCategorizedNews(String filter){
+        NewsArticle a= new NewsArticle();
+        a.getFilteredList(filter);
+        idToUrl = a.getIdUrl();
+        return a.getFilteredList(filter);
     }
 }

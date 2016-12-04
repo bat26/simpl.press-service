@@ -1,5 +1,7 @@
 package com.simpl.service.news.newsservice.newsapi;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Article;
@@ -8,7 +10,6 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
 import com.simpl.service.news.newsservice.api.client.NewsListItemDto;
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.ws.rs.core.UriBuilder;
@@ -17,10 +18,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 
@@ -43,7 +42,7 @@ public class NewsArticle {
     }
 
 
-    public List<NewsListItemDto> getNewsListByCategory(String arg1, String arg2) {
+    public List<NewsListItemDto> getNewsListByCategory() {
 
         AlchemyDataNews service = new AlchemyDataNews();
         service.setApiKey("355266491b345cda940733f6558d1db3373c9780");
@@ -53,31 +52,75 @@ public class NewsArticle {
                         "enriched.url.publicationDate", "enriched.url.enrichedTitle.entities",
                         "enriched.url.enrichedTitle.docSentiment"};
         params.put(AlchemyDataNews.RETURN, StringUtils.join(fields, ","));
-        params.put(AlchemyDataNews.START, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - 16400000));
-        params.put(AlchemyDataNews.END, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
-        params.put(AlchemyDataNews.COUNT, 10);
+        params.put(AlchemyDataNews.START,"now-1d");
+        params.put(AlchemyDataNews.END,"now");
+        params.put(AlchemyDataNews.COUNT, 50);
 
         DocumentsResult result = service.getNewsDocuments(params).execute();
         List<NewsListItemDto> listOfNews = new ArrayList<>();
         for (Document i : result.getDocuments().getDocuments()) {
+            System.out.println(i.toString());
+
+            JsonParser parser = new JsonParser();
+            JsonObject rawJson = parser.parse(i.toString()).getAsJsonObject();
+            Long dateAsLong = rawJson.get("timestamp").getAsLong()*1000;
 
 
             Article article = i.getSource().getEnriched().getArticle();
-            String al[]=article.getPublicationDate().getDate().toString().split(" ");
-            al[0]= al[0]+al[1]+al[2];
-            //article url -> sentiment.get
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String happyDateString = sdf.format(dateAsLong);
             listOfNews.add(NewsListItemDto.builder()
                     .withId(i.getId())
                     .withTitle(article.getTitle())
                     .withSummary(i.getSource().getEnriched().getArticle().getText())
                     .withSentiment("positive")
                     .withReputation(NewsListItemDto.Reputation.GOOD)
-                    .withPublishDate(al[0]).build());
+                    .withPublishDate(happyDateString).build());
             idUrl.put(i.getId(), i.getSource().getEnriched().getArticle().getUrl());
         }
 
         return listOfNews;
     }
+
+    public List<NewsListItemDto> getFilteredList(String filterBy){
+
+        AlchemyDataNews service = new AlchemyDataNews();
+        service.setApiKey("355266491b345cda940733f6558d1db3373c9780");
+        Map<String, Object> params = new HashMap<String, Object>();
+        String[] fields =
+                new String[]{"enriched.url.title", "enriched.url.url", "enriched.url.author",
+                        "enriched.url.publicationDate", "enriched.url.enrichedTitle.entities",
+                        "enriched.url.enrichedTitle.docSentiment"};
+        params.put(AlchemyDataNews.RETURN, StringUtils.join(fields, ","));
+        params.put(AlchemyDataNews.START,"now-1d");
+        params.put(AlchemyDataNews.END,"now");
+        params.put(AlchemyDataNews.COUNT, 50);
+        params.put("q.enriched.url.enrichedTitle.taxonomy.taxonomy_.label", filterBy);
+
+        DocumentsResult result = service.getNewsDocuments(params).execute();
+        List<NewsListItemDto> listOfNews = new ArrayList<>();
+        for (Document i : result.getDocuments().getDocuments()) {
+            JsonParser parser = new JsonParser();
+            JsonObject rawJson = parser.parse(i.toString()).getAsJsonObject();
+            Long dateAsLong = rawJson.get("timestamp").getAsLong()*1000;
+
+
+            Article article = i.getSource().getEnriched().getArticle();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String happyDateString = sdf.format(dateAsLong);
+            listOfNews.add(NewsListItemDto.builder()
+                    .withId(i.getId())
+                    .withTitle(article.getTitle())
+                    .withSummary(i.getSource().getEnriched().getArticle().getText())
+                    .withSentiment("positive")
+                    .withReputation(NewsListItemDto.Reputation.GOOD)
+                    .withPublishDate(happyDateString).build());
+            idUrl.put(i.getId(), i.getSource().getEnriched().getArticle().getUrl());
+        }
+
+        return listOfNews;
+    }
+
 
     public String getSummary(String url) throws IOException {
         String requestUrl = "https://www.tools4noobs.com/";

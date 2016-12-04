@@ -61,4 +61,12 @@ public class ClientApiResource implements ClientApi {
     public NewsItemDto getMoreNewsForThis(@PathParam("newsid")final String newsId) throws IOException {
         return clientService.getMoreNewsForThis(newsId);
     }
+
+    @GET
+    @Path("/getCategorizedNews/{category}")
+    @ApiOperation("Retrieves a list of news items for a given category")
+    @Override
+    public List<NewsListItemDto> getCategorizedNews(@PathParam("category") String category) {
+        return clientService.getCategorizedNews(category);
+    }
 }
