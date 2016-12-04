@@ -69,7 +69,7 @@ public class NewsArticle {
         params.put(AlchemyDataNews.RETURN, StringUtils.join(fields, ","));
         params.put(AlchemyDataNews.START,"now-1d");
         params.put(AlchemyDataNews.END,"now");
-        params.put(AlchemyDataNews.COUNT, 50);
+        params.put(AlchemyDataNews.COUNT, 20);
 
         DocumentsResult result = service.getNewsDocuments(params).execute();
         List<NewsListItemDto> listOfNews = new ArrayList<>();
@@ -112,7 +112,7 @@ public class NewsArticle {
         params.put(AlchemyDataNews.RETURN, StringUtils.join(fields, ","));
         params.put(AlchemyDataNews.START,"now-1d");
         params.put(AlchemyDataNews.END,"now");
-        params.put(AlchemyDataNews.COUNT, 30);
+        params.put(AlchemyDataNews.COUNT, 20);
         params.put("q.enriched.url.enrichedTitle.taxonomy.taxonomy_.label", filterBy);
 
         DocumentsResult result = service.getNewsDocuments(params).execute();
