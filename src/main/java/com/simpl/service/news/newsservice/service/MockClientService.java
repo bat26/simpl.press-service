@@ -55,6 +55,7 @@ public class MockClientService implements ClientApi {
                 .withId(newsId)
                 .withSummary(summary)
                 .withSentiment(a.getSentiment(summaryUrl).getSentiment().getType().toString())
+                .withReputation("good")
                 .withUrl(summaryUrl)
                 .build();
     }
