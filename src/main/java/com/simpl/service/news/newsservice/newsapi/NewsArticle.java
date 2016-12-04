@@ -20,8 +20,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class NewsArticle {
@@ -87,6 +90,7 @@ public class NewsArticle {
                     .withTitle(article.getTitle())
                     .withSummary(i.getSource().getEnriched().getArticle().getText())
                     .withSentiment("positive")
+                    .withReputation(reputation)
                     .withReputation(NewsListItemDto.Reputation.GOOD)
                     .withPublishDate(happyDateString).build());
             idUrl.put(i.getId(), i.getSource().getEnriched().getArticle().getUrl());

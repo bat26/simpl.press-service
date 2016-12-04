@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -jar target/SimplPress-0.1.jar server config/local.yml
