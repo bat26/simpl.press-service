@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Mock Client API implementation.
@@ -18,6 +19,8 @@ import java.util.Map;
 public class MockClientService implements ClientApi {
 
     Map<String, String> idToUrl;
+    String[] list = {"POSITIVE", "NEGATIVE", "NEUTRAL"};
+    Random r = new Random();
 
     public MockClientService() {
         idToUrl = new HashMap<>();
@@ -54,7 +57,7 @@ public class MockClientService implements ClientApi {
         return NewsItemDto.builder()
                 .withId(newsId)
                 .withSummary(summary)
-                .withSentiment(a.getSentiment(summaryUrl).getSentiment().getType().toString())
+                .withSentiment(list[r.nextInt(list.length)])
                 .withReputation("GOOD")
                 .withUrl(summaryUrl)
                 .build();
